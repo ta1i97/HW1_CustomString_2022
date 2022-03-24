@@ -1,12 +1,12 @@
-#include "CustomString.h"
+#include "arrString.h"
 
-CustomString::CustomString()
+arrString::arrString()
 {
     numString = 0;
     *arrString = NULL;
 }
 
-CustomString::CustomString(string str)
+arrString::arrString(string str)
 {
     this->numString = length_String(str); // the length of numString = to the length of the new str.
     arrString = new char[numString];      // dinamy memory
@@ -16,7 +16,7 @@ CustomString::CustomString(string str)
     }
 }
 
-CustomString::CustomString(const CustomString &other)
+arrString::arrString(const arrString &other)
 {
     this->numString = other.numString;
     for (int i = 0; i < numString; i++)
@@ -25,22 +25,22 @@ CustomString::CustomString(const CustomString &other)
     }
 }
 
-CustomString::~CustomString()
+arrString::~arrString()
 {
     delete[] arrString;
 }
 
-int CustomString::get_numString()
+int arrString::get_numString()
 {
     return numString;
 }
 
-char *CustomString::get_arrString()
+char *arrString::get_arrString()
 {
     return arrString;
 }
 
-void CustomString::new_arrString(int length, char *arr)
+void arrString::new_arrString(int length, char *arr)
 {
     this->numString = length; // the length of numString = to length.
     arr = new char[length];   // new memory for the new arr.
@@ -50,13 +50,13 @@ void CustomString::new_arrString(int length, char *arr)
     }
 }
 
-void CustomString::print()
+void arrString::print()
 {
     cout << "String: " << this->arrString << endl;
     cout << "Length: " << this->numString << endl;
 }
 
-int CustomString::return_ASCII()
+int arrString::return_ASCII()
 {
     int sum = 0;
     for (int i = 0; this->arrString[i] != '\0'; i++)
@@ -66,7 +66,7 @@ int CustomString::return_ASCII()
     return sum;
 }
 
-string CustomString::convert_String()
+string arrString::convert_String()
 {
     string newStr;
     int i = 0; // index
@@ -78,7 +78,7 @@ string CustomString::convert_String()
     return newStr;
 }
 
-bool CustomString::palindrome()
+bool arrString::palindrome()
 {
     int first = 0, end = numString - 1;
     while (this->arrString[first])
@@ -93,7 +93,7 @@ bool CustomString::palindrome()
     return true;
 }
 
-bool CustomString::compare_obj(string obj)
+bool arrString::compare_obj(string obj)
 {
     int index = 0;
     while (this->arrString[index])
@@ -112,7 +112,7 @@ bool CustomString::compare_obj(string obj)
     */
 }
 
-char CustomString::index_Value(int index)
+char arrString::index_Value(int index)
 {
     if (index == '\0' || index < 0 || index > numString)
     {
@@ -122,7 +122,7 @@ char CustomString::index_Value(int index)
     return this->arrString[index];
 }
 
-void CustomString::doubleString(){
+void arrString::doubleString(){
     char* other = new char[numString]; // הקצאת זיכרון 
     for(int i = 0; i < numString; i++){
     this->arrString[i] = other[i];  // השמה של המילים
@@ -132,17 +132,31 @@ void CustomString::doubleString(){
     this->numString *= 2; // עידכון גודל הסטרינג
 }
 
-void CustomString::sub(char letter){
-    int counter;
-        for(int i = 0; i < numString; i ++){
-            if(this->arrString[i] == letter){
-                // TODO delete the letter in the whole string
+void arrString::sub(char letter){
+    int index = 0, jump = 0;
+    
+    while(this->arrString[index]){
+        if(this->arrString[index+jump] == c){
+            while(this->arrString[index+jump] == c){
+                this->size -= 1;
+                jump++;
             }
         }
-        // TODO: this->numString = counter; // update the numString into new size of the string == counter.
-    }
 
-char* CustomString::strcat(char *dest, const char *src)
+        this->arrString[index] = this->arrString[index+jump];
+        index++;
+    }
+    
+    char *newStr = new char[this->size];
+    myStrcpy(newStr, this->arrString);
+    delete [] this->arrString;
+    char *arrString = new char[this->size];
+    myStrcpy(arrString, newStr);
+    delete[] newStr;
+
+}
+
+char* arrString::strcat(char *dest, const char *src)
 {
     char *newString = dest + length_char(dest);
     // the newString begins in the 5th index because the variable "dest" points in its first index, 
