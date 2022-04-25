@@ -1,0 +1,5 @@
+./TwoDigits.*
+./boolArray.*
+./menu.*
+obj/
+obj/*
