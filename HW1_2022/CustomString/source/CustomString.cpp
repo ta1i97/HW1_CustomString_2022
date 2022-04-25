@@ -1,12 +1,12 @@
-#include "arrString.h"
+#include "../include/CustomString.h"
 
-arrString::arrString()
+CustomString::CustomString()
 {
     numString = 0;
-    *arrString = NULL;
+    arrString = NULL;
 }
 
-arrString::arrString(string str)
+CustomString::CustomString(string str)
 {
     this->numString = length_String(str); // the length of numString = to the length of the new str.
     arrString = new char[numString];      // dinamy memory
@@ -16,7 +16,7 @@ arrString::arrString(string str)
     }
 }
 
-arrString::arrString(const arrString &other)
+CustomString::CustomString(const CustomString &other)
 {
     this->numString = other.numString;
     for (int i = 0; i < numString; i++)
@@ -25,22 +25,22 @@ arrString::arrString(const arrString &other)
     }
 }
 
-arrString::~arrString()
+CustomString::~CustomString()
 {
     delete[] arrString;
 }
 
-int arrString::get_numString()
+int CustomString::get_numString()
 {
     return numString;
 }
 
-char *arrString::get_arrString()
+char *CustomString::get_arrString()
 {
     return arrString;
 }
 
-void arrString::new_arrString(int length, char *arr)
+void CustomString::new_arrString(int length, char *arr)
 {
     this->numString = length; // the length of numString = to length.
     arr = new char[length];   // new memory for the new arr.
@@ -50,13 +50,13 @@ void arrString::new_arrString(int length, char *arr)
     }
 }
 
-void arrString::print()
+void CustomString::print()
 {
     cout << "String: " << this->arrString << endl;
     cout << "Length: " << this->numString << endl;
 }
 
-int arrString::return_ASCII()
+int CustomString::return_ASCII()
 {
     int sum = 0;
     for (int i = 0; this->arrString[i] != '\0'; i++)
@@ -66,7 +66,7 @@ int arrString::return_ASCII()
     return sum;
 }
 
-string arrString::convert_String()
+string CustomString::convert_String()
 {
     string newStr;
     int i = 0; // index
@@ -78,7 +78,7 @@ string arrString::convert_String()
     return newStr;
 }
 
-bool arrString::palindrome()
+bool CustomString::palindrome()
 {
     int first = 0, end = numString - 1;
     while (this->arrString[first])
@@ -93,7 +93,7 @@ bool arrString::palindrome()
     return true;
 }
 
-bool arrString::compare_obj(string obj)
+bool CustomString::compare_obj(string obj)
 {
     int index = 0;
     while (this->arrString[index])
@@ -112,7 +112,7 @@ bool arrString::compare_obj(string obj)
     */
 }
 
-char arrString::index_Value(int index)
+char CustomString::index_Value(int index)
 {
     if (index == '\0' || index < 0 || index > numString)
     {
@@ -122,7 +122,7 @@ char arrString::index_Value(int index)
     return this->arrString[index];
 }
 
-void arrString::doubleString(){
+void CustomString::doubleString(){
     char* other = new char[numString]; // הקצאת זיכרון 
     for(int i = 0; i < numString; i++){
     this->arrString[i] = other[i];  // השמה של המילים
@@ -132,13 +132,13 @@ void arrString::doubleString(){
     this->numString *= 2; // עידכון גודל הסטרינג
 }
 
-void arrString::sub(char letter){
+void CustomString::sub(char letter){
     int index = 0, jump = 0;
     
     while(this->arrString[index]){
-        if(this->arrString[index+jump] == c){
-            while(this->arrString[index+jump] == c){
-                this->size -= 1;
+        if(this->arrString[index+jump] == letter){
+            while(this->arrString[index+jump] == letter){
+                this->numString -= 1;
                 jump++;
             }
         }
@@ -147,16 +147,21 @@ void arrString::sub(char letter){
         index++;
     }
     
-    char *newStr = new char[this->size];
-    myStrcpy(newStr, this->arrString);
+    char *newStr = new char[this->numString];
+    for (int i = 0; i < numString; i++)
+    { 
+        newStr[i] = this->arrString[i];
+    }
     delete [] this->arrString;
-    char *arrString = new char[this->size];
-    myStrcpy(arrString, newStr);
+    char *arrString = new char[this->numString];
+    for (int i = 0; i < numString; i++)
+    { 
+        this->arrString[i] = newStr[i];
+    }
     delete[] newStr;
-
 }
 
-char* arrString::strcat(char *dest, const char *src)
+char* CustomString::strcat(char *dest, const char *src)
 {
     char *newString = dest + length_char(dest);
     // the newString begins in the 5th index because the variable "dest" points in its first index, 
