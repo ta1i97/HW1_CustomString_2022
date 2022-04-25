@@ -1,10 +1,10 @@
-SRC=src
+SRC=source
 OBJ=obj
 BIN=bin
 
 CFLAGS += -g3 -Iinclude
 CC=g++ -std=c++11
-TARGET= customString
+TARGET= CustomString
 RM=rm -rf
 
 $(shell mkdir -p obj)
