@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "../include/Student.h"
 using namespace std;
 
 int main() {
